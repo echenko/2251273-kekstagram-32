@@ -1,4 +1,4 @@
-import { setDefault, setRandom, setDiscussed, sortDefault, sortRandom, sortDiscussed } from './thumbnails_filter.js';
+import { setFilterDefault, setFilterRandom, setfilterDiscussed } from './thumbnails_filter.js';
 import { bigPictureOpen } from './picture.js';
 import { getData } from './api.js';
 import { debounce } from './function.js';
@@ -70,15 +70,11 @@ const getThumbnails = () => {
     (data) => {
       showFilters();
       drawsThumbnails(data);
-      setDefault(() => {
-        drawsThumbnailsDebounced(sortDefault(data));
-      });
-      setRandom(() => {
-        drawsThumbnailsDebounced(sortRandom(data));
-      });
-      setDiscussed(() => {
-        drawsThumbnailsDebounced(sortDiscussed(data));
-      });
+
+      setFilterDefault(drawsThumbnailsDebounced, data);
+      setFilterRandom(drawsThumbnailsDebounced, data);
+      setfilterDiscussed(drawsThumbnailsDebounced, data);
+
     },
     () => downloadErrorOuput());
 };

@@ -1,9 +1,15 @@
 const imgFilters = document.querySelector('.img-filters');
+
 const filterDefault = document.querySelector('#filter-default');
 const filterRandom = document.querySelector('#filter-random');
 const filterDiscussed = document.querySelector('#filter-discussed');
 const maxRandomThumbnails = 10;
 
+const SortThumbnails = {
+  DEFAULT: (array) => array.sort((first, last) => first.id - last.id),
+  RANDOM: (array) => array.sort(() => Math.random() - 0.5).slice(0, maxRandomThumbnails),
+  DISCUSSED: (array) => array.sort((first, last) => last.comments.length - first.comments.length),
+};
 
 // функция установки активного фильтра
 const setFilter = (evt) => {
@@ -12,42 +18,34 @@ const setFilter = (evt) => {
   evt.target.classList.add('img-filters__button--active');
 };
 
+const button = (cb, data, button) => {
+  button.addEventListener('click', (evt) => {
+    setFilter(evt);
+    cb(evt, data);
+  });
+};
 
-// функция отображения по умолчанию
-const setDefault = (cb) => {
+const setFilterDefault = (cb, data) => {
   filterDefault.addEventListener('click', (evt) => {
     setFilter(evt);
-    cb();
+    cb(SortThumbnails.DEFAULT(data));
   });
 };
 
-// функция сортировки по умолчанию (id)
-const sortDefault = (array) => array.sort((first, last) => first.id - last.id);
-
-
-// функция выбора случайного отображения
-const setRandom = (cb) => {
+const setFilterRandom = (cb, data) => {
   filterRandom.addEventListener('click', (evt) => {
     setFilter(evt);
-    cb();
+    cb(SortThumbnails.RANDOM(data));
   });
 };
 
-// функция сортировки по случайному отображению
-const sortRandom = (array) => array.sort(() => Math.random() - 0.5).slice(0, maxRandomThumbnails);
-
-
-// функция выбора отображения самых обсуждаемых миниатюр
-const setDiscussed = (cb) => {
+const setfilterDiscussed = (cb, data) => {
   filterDiscussed.addEventListener('click', (evt) => {
     setFilter(evt);
-    cb();
+    cb(SortThumbnails.DISCUSSED(data));
   });
 };
 
-// функция сортировки по количеству комментариев
-const sortDiscussed = (array) => array.sort((first, last) => last.comments.length - first.comments.length);
 
-
-export { setDefault, setRandom, setDiscussed, sortDefault, sortRandom, sortDiscussed };
+export { setFilterDefault, setFilterRandom, setfilterDiscussed };
 
