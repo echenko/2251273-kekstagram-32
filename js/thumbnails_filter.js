@@ -18,12 +18,6 @@ const setFilter = (evt) => {
   evt.target.classList.add('img-filters__button--active');
 };
 
-const button = (cb, data, button) => {
-  button.addEventListener('click', (evt) => {
-    setFilter(evt);
-    cb(evt, data);
-  });
-};
 
 const setFilterDefault = (cb, data) => {
   filterDefault.addEventListener('click', (evt) => {
