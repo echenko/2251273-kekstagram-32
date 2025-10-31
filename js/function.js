@@ -1,5 +1,7 @@
+const delayTime = 500;
+
 // функция дебаунса
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = delayTime) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -15,5 +17,10 @@ function corectValue (value) {
   return value.toFixed(1);
 }
 
+// функция отслеживания нажатия Esc
+function escTracking (evt) {
+  return evt.key === 'Escape';
+}
 
-export { debounce, corectValue };
+
+export { debounce, corectValue, escTracking };

@@ -1,4 +1,5 @@
 import { drawsComments } from './comments.js';
+import { escTracking } from './function.js';
 
 
 const picture = document.querySelector('.big-picture');
@@ -12,7 +13,7 @@ const bigPictureClose = () => {
 
 // функция отслеживания нажатия Esc
 const tracksEscKeystrokes = (evt) => {
-  if (evt.key === 'Escape') {
+  if (escTracking(evt)) {
     bigPictureClose();
     document.removeEventListener('keydown', tracksEscKeystrokes);
   }

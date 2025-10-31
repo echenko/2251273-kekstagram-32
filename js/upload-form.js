@@ -3,6 +3,7 @@ import { sendData } from './api.js';
 import { checkingHashtag } from './cheking-hashtag.js';
 import { modalError, modalSucces } from './modal.js';
 import { loadImage } from './image-load.js';
+import { escTracking } from './function.js';
 
 
 const DESCRIPTION_LENGTH = 140;
@@ -99,7 +100,7 @@ const uploadClose = () => {
 
 // функция отслеживания нажатия Esc
 const tracksEscKeystrokes = (evt) => {
-  if (evt.key === 'Escape') {
+  if (escTracking(evt)) {
     const modal = document.querySelector('.modal');
     if (document.activeElement !== textHashtags && document.activeElement !== textDescription && modal === null) {
       uploadClose();

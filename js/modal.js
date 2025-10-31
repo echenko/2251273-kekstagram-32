@@ -1,4 +1,5 @@
 import { uploadClose, tracksEscKeystrokes, unblockSubmit } from './upload-form.js';
+import { escTracking } from './function.js';
 
 const submitError = document.querySelector('#error').content.querySelector('.error');
 const submitSuccess = document.querySelector('#success').content.querySelector('.success');
@@ -8,7 +9,7 @@ const closeModal = (evt) => {
   const modal = document.querySelector('.modal');
   const button = modal.querySelector('button');
 
-  if (evt.key === 'Escape' || evt.target === modal || evt.target === button) {
+  if (escTracking(evt) || evt.target === modal || evt.target === button) {
     unblockSubmit();
     modal.remove();
     document.removeEventListener('keydown', closeModal);
